@@ -284,3 +284,16 @@ img,svg,video{max-width:100%}
 @media(max-width:1000px){.poster-marquee{--poster-h:260px}}
 @media(max-width:760px){.poster-marquee{--poster-h:200px}.poster-marquee .marquee-track{animation-duration:46s}.poster-marquee .marquee-track.marquee-b{animation-duration:52s}}
 @media(prefers-reduced-motion:reduce){.poster-marquee .marquee-track,.poster-marquee .marquee-track.marquee-b{animation:none!important}}
+/* ---- Interior page heroes (Clients, Our Work): keep the eyebrow label left-aligned on tablet & phone ---- */
+.page-hero .hero-eyebrow{justify-content:flex-start}
+.page-hero .page-hero-inner{text-align:left}
+
+/* ---- Index page, mobile only: tighter gaps between sections (desktop untouched) ---- */
+@media(max-width:760px){
+  .hero{padding-bottom:28px;gap:32px}
+  #about.block,#contact.block{padding:28px 0}
+  .services-section,.dm-section,.why-us-section{padding:28px 0}
+  #about .section-inner,#services .section-inner,#digital-marketing .section-inner,#why-us .section-inner,#contact .section-inner{padding-top:0;padding-bottom:0}
+  .why-us{margin-top:0;padding-top:0}
+  .services-grid{margin-top:32px}
+}
