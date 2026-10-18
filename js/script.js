@@ -9,6 +9,16 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   }
 
+  /* ---- Mobile menu: close after tapping a link, on Escape, or when resized to desktop ---- */
+  var navToggle = document.getElementById('navToggle');
+  if (navToggle) {
+    document.querySelectorAll('.nav-menu a').forEach(function (a) {
+      a.addEventListener('click', function () { navToggle.checked = false; });
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') navToggle.checked = false; });
+    window.addEventListener('resize', function () { if (window.innerWidth > 900) navToggle.checked = false; });
+  }
+
   /* ---- Land exactly on #section links after images finish loading ---- */
   if (location.hash.length > 1) {
     var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
@@ -103,9 +113,10 @@ document.addEventListener('DOMContentLoaded', function () {
       lb.classList.remove('is-open'); document.body.classList.remove('lightbox-open');
       lbImg.removeAttribute('src'); if (opener) opener.focus();
     };
-    document.querySelectorAll('.content-art-card img').forEach(function (img) {
-      img.tabIndex = 0; img.setAttribute('role', 'button');
+    document.querySelectorAll('.content-art-card img, .poster-marquee img').forEach(function (img) {
       img.addEventListener('click', function () { open(img); });
+      if (img.closest('[aria-hidden="true"]')) return;   /* looped duplicates: mouse/touch only */
+      img.tabIndex = 0; img.setAttribute('role', 'button');
       img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); } });
     });
     lbClose.addEventListener('click', close);
